@@ -5,15 +5,19 @@ import MedicineItem from "./MedicineItem";
 
 const MedicineList = (props) => {
   const shopCtx = useContext(ShopContext);
+  let medicinesList = <p>No medicines</p>
 
-  const medicinesList = shopCtx.medicines.map((medicine) => (
-    <MedicineItem
-      key={medicine._id}
-      name={medicine.name}
-      description={medicine.description}
-      price={medicine.price}
-    />
-  ));
+  if(shopCtx.medicines !== undefined){
+    medicinesList = shopCtx.medicines.map((medicine) => (
+        <MedicineItem
+          key={medicine._id}
+          name={medicine.name}
+          description={medicine.description}
+          price={medicine.price}
+        />
+      ));
+  }
+  
 
   return (
     <>

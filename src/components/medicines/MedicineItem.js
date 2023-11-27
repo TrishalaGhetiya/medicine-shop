@@ -9,7 +9,6 @@ const MedicineItem = (props) => {
 
   const addToCartHandler = (amount) => {
     cartCtx.addItem({
-      id: props.id,
       name: props.name,
       amount: amount,
       price: props.price

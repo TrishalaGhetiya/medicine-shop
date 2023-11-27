@@ -51,7 +51,7 @@ const ShopProvider = (props) => {
   };
 
   const shopContext = {
-    medicines: shopState.items,
+    medicines: shopState.medicines,
     addMedicines: addMedicineToShopHandler,
   };
 

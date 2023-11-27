@@ -38,7 +38,7 @@ const shopCtx = useContext(ShopContext);
             <Form.Label>Price</Form.Label>
             <Form.Control type="text" ref={priceInputRef} />
           </Form.Group>
-          <Button className="float-end">ADD</Button>
+          <Button type="submit" className="float-end">ADD</Button>
         </Form>
       </Container>
     </>

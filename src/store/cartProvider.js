@@ -2,14 +2,13 @@ import React, { useReducer } from "react";
 
 import CartContext from "./cart-context";
 import { useContext } from "react";
-import AuthContext from "./auth-context";
 import { useEffect } from "react";
 import {
   addDataToCart,
   deleteDataFromCart,
   getCartData,
 } from "../helper-functions/database-requests";
-import toast from "react-hot-toast";
+
 
 const defaultCartState = {
   items: [],
@@ -87,8 +86,6 @@ const cartReducer = (state = defaultCartState, action) => {
 };
 
 const CartProvider = (props) => {
-  const authCtx = useContext(AuthContext);
-  let { isLoggedIn, email } = authCtx;
 
   const [cartState, dispatchCartAction] = useReducer(
     cartReducer,
@@ -96,27 +93,25 @@ const CartProvider = (props) => {
   );
 
   useEffect(() => {
-    isLoggedIn &&
-      getCartData(email)
+      getCartData()
         .then(({ data }) => {
           data && dispatchCartAction({ type: "GET", cartItems: data });
         })
         .catch((err) => console.log(err.message));
 
     dispatchCartAction({ type: "GET", cartItems: [] });
-  }, [isLoggedIn, email]);
+  }, []);
 
   const addItemToCartHandler = (item) => {
-    addDataToCart(authCtx.email, item)
+    addDataToCart( item)
       .then(({ data }) => {
         dispatchCartAction({ type: "ADD", item: data });
-        toast.success('Item added to the cart');
       })
       .catch((err) => console.log(err.message));
   };
 
   const removeItemFromCartHandler = (id, _id) => {
-    deleteDataFromCart(authCtx.email, _id)
+    deleteDataFromCart( _id)
       .then(({ data }) => {
         dispatchCartAction({ type: "REMOVE", id: id });
       })
@@ -126,7 +121,7 @@ const CartProvider = (props) => {
   const order = (items) => {
     try {
       items.forEach(async (item) => {
-        await deleteDataFromCart(authCtx.email, item._id);
+        await deleteDataFromCart( item._id);
       });
 
       dispatchCartAction({ type: "ORDER" });
