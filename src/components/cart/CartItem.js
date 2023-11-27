@@ -1,6 +1,7 @@
 import { Button } from "react-bootstrap";
 
 const CartItem = (props) => {
+    
   return (
     <tr>
       <td>{props.title}</td>

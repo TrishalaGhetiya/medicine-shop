@@ -1,7 +1,6 @@
 import React, { useReducer } from "react";
 
 import CartContext from "./cart-context";
-import { useContext } from "react";
 import { useEffect } from "react";
 import {
   addDataToCart,
@@ -20,7 +19,7 @@ const cartReducer = (state = defaultCartState, action) => {
     let updatedItems = [...state.items];
     updatedItems = state.items.concat(action.item);
     const updatedTotalAmount =
-      state.totalAmount + action.item.price * action.item.quantity;
+      state.totalAmount + action.item.price * action.item.amount;
     // const existingCartItemIndex = state.items.findIndex(
     //   (item) => item.id === action.item.id
     // );
@@ -75,7 +74,7 @@ const cartReducer = (state = defaultCartState, action) => {
     const updatedItems = action.cartItems;
     let updatedTotalAmount = 0;
     for(let i=0;i<updatedItems.length;i++){
-      updatedTotalAmount = updatedTotalAmount + (updatedItems[i].price * updatedItems[i].quantity);
+      updatedTotalAmount = updatedTotalAmount + (updatedItems[i].price * updatedItems[i].amount);
     }
     return {
       items: updatedItems,
@@ -103,7 +102,8 @@ const CartProvider = (props) => {
   }, []);
 
   const addItemToCartHandler = (item) => {
-    addDataToCart( item)
+    console.log(item);
+    addDataToCart(item)
       .then(({ data }) => {
         dispatchCartAction({ type: "ADD", item: data });
       })

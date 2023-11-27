@@ -3,7 +3,7 @@ import { Button, Form, FormControl } from "react-bootstrap";
 
 const MedicineItemForm = (props) => {
   const [amountIsValid, setAmountIsValid] = useState(true);
-  
+
   const submitHandler = (event) => {
     event.preventDefault();
 
@@ -38,7 +38,7 @@ const MedicineItemForm = (props) => {
           defaultValue: "1",
         }}
       />
-      <Button>Add</Button>
+      <Button type="submit">Add</Button>
       {!amountIsValid && <p>Enter valid amount (1-5)</p>}
     </Form>
   );
